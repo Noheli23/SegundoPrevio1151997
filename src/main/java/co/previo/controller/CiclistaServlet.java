@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import co.previo.dao.EquipoDao;
-import co.previo.modelo.Equipo;
+import co.previo.dao.CiclistaDao;
+import co.previo.modelo.Ciclista;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -15,14 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EquipoServlet
+ * Servlet implementation class CiclistaServlet
  */
 @WebServlet("/")
-public class EquipoServlet extends HttpServlet {
+public class CiclistaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private EquipoDao equipoDao;
-    public EquipoServlet() {
+	private CiclistaDao ciclistaDao;
+	
+    public CiclistaServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -31,7 +31,7 @@ public class EquipoServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		this.equipoDao = new EquipoDao();
+		this.ciclistaDao = new CiclistaDao();
 	}
 
 	/**
@@ -46,19 +46,19 @@ public class EquipoServlet extends HttpServlet {
 					showNewForm(request, response);
 					break;
 				case "/insert":
-					insertarEquipo(request, response);
+					insertarCiclista(request, response);
 					break;
 				case "/delete":
-					eliminarEquipo(request, response);
+					eliminarCiclista(request, response);
 					break;
 				case "/edit":
 					showEditForm(request, response);
 					break;
 				case "/update":
-					actualizarEquipo(request, response);
+					actualizarCiclista(request, response);
 					break;
 				default:
-					listEquipo(request, response);
+					listCiclista(request, response);
 					break;
 			}	
 		} catch (SQLException e) {
@@ -74,15 +74,14 @@ public class EquipoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
 	public void showNewForm(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException{
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("equipo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ciclista.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	public void insertarEquipo(HttpServletRequest request, HttpServletResponse response)
+	public void insertarCiclista(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, SQLException, IOException{
 		
 		String name= request.getParameter("name");
@@ -91,9 +90,9 @@ public class EquipoServlet extends HttpServlet {
 		String country= request.getParameter("country");
 		String team= request.getParameter("team");
 		
-		Equipo equipo= new Equipo(name, email, birthdate, country, team);
+		Ciclista ciclista= new Ciclista(name, email, birthdate, country, team);
 		
-		equipoDao.insert(equipo);
+		ciclistaDao.insert(ciclista);
 		
 		response.sendRedirect("list");
 	}
@@ -102,15 +101,15 @@ public class EquipoServlet extends HttpServlet {
 	throws ServletException, IOException{
 		
 		int id= Integer.parseInt(request.getParameter("id"));
-		Equipo equipoActual= equipoDao.select(id);
+		Ciclista ciclistaActual= ciclistaDao.select(id);
 		
-		request.setAttribute("equipo",equipoActual);
+		request.setAttribute("ciclista",ciclistaActual);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("equipo.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ciclista.jsp");
 		dispatcher.forward(request, response);
 	}
 	
-	public void actualizarEquipo(HttpServletRequest request, HttpServletResponse response)
+	public void actualizarCiclista(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, SQLException, IOException{
 		int id= Integer.parseInt(request.getParameter("id"));
 		String name= request.getParameter("name");
@@ -120,29 +119,29 @@ public class EquipoServlet extends HttpServlet {
 		String team= request.getParameter("team");
 		
 		
-		Equipo equipo= new Equipo(id, name, email, birthdate, country, team);
+		Ciclista ciclista= new Ciclista(id, name, email, birthdate, country, team);
 		
-		equipoDao.update(equipo);
+		ciclistaDao.update(ciclista);
 		
 		response.sendRedirect("list");
 	}
 
-	public void eliminarEquipo(HttpServletRequest request, HttpServletResponse response)
+	public void eliminarCiclista(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, SQLException, IOException{
 		int id= Integer.parseInt(request.getParameter("id"));
 	
-		equipoDao.delete(id);
+		ciclistaDao.delete(id);
 		
 		response.sendRedirect("list");
 	}
 	
-	public void listEquipo(HttpServletRequest request, HttpServletResponse response)
+	public void listCiclista(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, SQLException, IOException{
 				
-		List <Equipo> listEquipos = equipoDao.selectAll();
-		request.setAttribute("listEquipos", listEquipos);
+		List <Ciclista> listCiclistas = ciclistaDao.selectAll();
+		request.setAttribute("listCiclistas", listCiclistas);
 				
-		RequestDispatcher dispatcher = request.getRequestDispatcher("equipolist.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ciclistalist.jsp");
 		dispatcher.forward(request, response);
 	}
 

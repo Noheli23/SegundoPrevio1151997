@@ -6,10 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipo implements Serializable{
+public class Ciclista implements Serializable{
 
 	private Integer id;
 	private String name;
@@ -18,7 +19,7 @@ public class Equipo implements Serializable{
 	private String country;
 	private String team;
 	
-	public Equipo(String name, String email, String birthdate, String country, String team) {
+	public Ciclista(String name, String email, String birthdate, String country, String team) {
 		
 		this.name = name;
 		this.email = email;
@@ -26,7 +27,4 @@ public class Equipo implements Serializable{
 		this.country = country;
 		this.team = team;
 	}
-	
-	
-	
 }
