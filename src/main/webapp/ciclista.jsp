@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +13,11 @@
 <header>
 		<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #f06292">
 			<div>
-				<a href="https://www.javaguides.net" class="navbar-brand">Gestión de Ciclistas</a>
+				<a href="https://www.javaguides.net" class="navbar-brand text-center">Gestión de Ciclistas</a>
 			</div>
 			
 			<ul>
-				<li><a href="<%=request.getContextPath()%>/list" class="nav-link">Ciclistas</a></li>
+				<li><a href="<%=request.getContextPath()%>/list" class="nav-link"></a></li>
 			</ul>
 		</nav>
 	</header>
@@ -58,7 +59,7 @@
 				<fieldset class="form-group">
 					<label>Equipo</label> <input type="text" value="<c:out value='${ciclista.team}'/>" class="form-control" name="team" required="required">
 				</fieldset>
-				<button type="submit" class="btn btn-success">Guardar</button>
+				<button type="submit" class="btn btn-success" style="background-color:#f06292 ">Guardar</button>
 				</form>
 			</div>
 		</div>
